@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+var = 'print("#!/usr/bin/env python3\\nvar = " + repr(var) + "\\neval(var)")'
+eval(var)
