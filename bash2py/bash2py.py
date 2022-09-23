@@ -38,15 +38,15 @@ def process_line(line):
         match = re.fullmatch(r'(\s*)(else)\s', line)
         return f'{match.group(1)}{match.group(2)}:\n'
     
-    elif re.fullmatch(r'\s*echo (.+)\s', line):
+    elif re.fullmatch(r'\s*(echo|printf) (.+)\s', line):
         if(re.fullmatch(r'\s*echo (\$.+)\s', line)):
             match = re.fullmatch(r'(\s*)echo (\$.+)\s', line)
             string = re.sub('\$','',match.group(2).strip())
             string = re.sub(' ', ', ',string)
             return f'{match.group(1)}print({string})\n'
-        elif(re.fullmatch(r'\s*echo (\"?.+\"?)\s', line)):
+        elif(re.fullmatch(r'(\s*)(echo|printf) (\"?.+\"?)\s', line)):
             match = re.fullmatch(r'(\s*)(echo|printf) (\"?.+\"?)\s', line)
-            string = re.sub('\"|\'','',match.group(2))
+            string = re.sub('\"|\'','',match.group(3))
             return f'{match.group(1)}print("{string}")\n'
 
     return line
